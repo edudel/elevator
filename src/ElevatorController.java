@@ -21,10 +21,7 @@ public class ElevatorController
     //another approach could also be by name and then in the main class use the name to get the elevator object
     public Elevator getElevatorFloor(int floor)
     {
-        int floor = 0; // if 0 means the elevator was not found
-        if (elevatorLocations.get(floor)!= null)
-            floor = elevatorLocations.get(floor);
-        return floor;
+        return elevatorLocations.get(floor);
     }
 
     public Map<Integer, String> getRequestMadeFloors()
@@ -40,15 +37,27 @@ public class ElevatorController
         requestMadeFloors.put(requestMadeFloor, requestDirection);
     }
 
-    public Elevator getClosestElevatorAvailable()
+    public Elevator getClosestElevatorAvailable(int floor)
     {
-        Iterator iterator = elevatorLocations.entrySet().iterator();
-            while (iterator.hasNext())
-            {
-                Map.Entry pair = (Map.Entry)iterator.next();
-                System.out.println(pair.getKey() + " = " + pair.getValue());
+        Elevator closestElevator = getElevatorFloor(floor);
+        if (closestElevator != null && Elevator.WAITING.equals(closestElevator.getStatus()))       //The exception is that if an unoccupied elevator is already stopped at that floor, then it will always have the highest priority answering that call.
+        {
+            return closestElevator;
+        }
 
-            }
+        Iterator iterator = elevatorLocations.entrySet().iterator();
+        int distance = 0;
+        while (iterator.hasNext())
+        {
+            Map.Entry<Integer, Elevator> floorElevator = (Map.Entry)iterator.next();
+
+            int floorNumber = floorElevator.getKey();
+            Elevator elevator = floorElevator.getValue();
+            if (distance != 0)
+                distance = Math.abs(floor - floorNumber);
+            else
+
+        }
 
     }
 
