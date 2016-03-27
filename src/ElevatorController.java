@@ -52,7 +52,7 @@ public class ElevatorController
         for (Elevator closestElevator : closestElevators)
         {
             // send the first one found. we can take into accoutn weight as well. or trips
-            if (closestElevator != null && Elevator.WAITING.equals(closestElevator.getStatus()))       //The exception is that if an unoccupied elevator is already stopped at that floor, then it will always have the highest priority answering that call.
+            if (closestElevator != null && Elevator.WAITING.equals(closestElevator.getStatus()) && closestElevator.getDoorStatus())       //The exception is that if an unoccupied elevator is already stopped at that floor, then it will always have the highest priority answering that call.
                 return closestElevator;
         }
 

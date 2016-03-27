@@ -20,6 +20,7 @@ public class Elevator
         this.name = name;
         this.currentFloor = currentFloor;
         this.openedDoors = openedDoors;
+        this.status = status;
     }
 
     public String getTrips()

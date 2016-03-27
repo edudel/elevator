@@ -5,12 +5,13 @@ public class Simulation
     public static void Main (String[] args)
     {
         int elevators = 2;
-        Elevator elevator = new Elevator(Elevator.MIN_FLOOR, false, Elevator.WAITING);
+        ElevatorController elevatorController = new ElevatorController();
+        Elevator elevator = new Elevator("one", 1, false, Elevator.WAITING);
 
-        for (int i = 0; i < elevators; i++)
-        {
+        for ()
+        elevatorController.setElevatorFloor(e);
 
-        }
+
 
     }
 }
