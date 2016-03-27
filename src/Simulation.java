@@ -1,8 +1,16 @@
 
 public class Simulation
 {
-    public void Main (String[] args)
+
+    public static void Main (String[] args)
     {
-        Elevator
+        int elevators = 10;
+        Elevator elevator = new Elevator(Elevator.MIN_FLOOR, false, Elevator.WAITING);
+
+        for (int i = 0; i < elevators; i++)
+        {
+
+        }
+
     }
 }
