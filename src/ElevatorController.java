@@ -1,14 +1,17 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ElevatorController
 {
     public static final int TOTAL_DESIRED_FLOORS = 100;
+    public static final int  MIN_FLOOR = 1;
     public static final String DOWN = "DOWN";
     public static final String UP = "UP";
 
     // 0 means not request
-    private int requestMadeFloor = 0;
+    private Map<Integer, String> requestMadeFloors = new HashMap<Integer, String>();
     private String requestDirection;
     private Map<Elevator, Integer> elevatorLocations = new HashMap<Elevator, Integer>();
 
@@ -31,16 +34,26 @@ public class ElevatorController
         return this.requestMadeFloor;
     }
 
-    public int setRequestMadeFloorNumber(int requestMadeFloor, String requestDirection)
+    public void setRequestMadeFloorNumber(int requestMadeFloor, String requestDirection)
     {
-        if (requestMadeFloor >= TOTAL_DESIRED_FLOORS && UP.equals(requestDirection))
-            return 0;
-        return this.requestMadeFloor = requestMadeFloor;
+        if (requestMadeFloor >= TOTAL_DESIRED_FLOORS && UP.equals(requestDirection) || requestMadeFloor < MIN_FLOOR && DOWN.equals(requestDirection))
+            return;
+
+        requestMadeFloors.put(requestMadeFloor, requestDirection);
+
+
+        this.requestMadeFloor = requestMadeFloor;
+
     }
 
     public String getRequestDirection()
     {
         return this.requestDirection;
+    }
+
+    public Elevator getClosesElevatorAvailable()
+    {
+
     }
 
 }
