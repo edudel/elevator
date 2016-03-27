@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Vector;
 
 public class ElevatorController
 {
@@ -11,15 +12,23 @@ public class ElevatorController
 
     // 0 means not request
     private Map<Integer, String> requestMadeFloors = new HashMap<Integer, String>();
-    private Map<Integer, Elevator> elevatorLocations = new HashMap<Integer, Elevator>();
+    private Map<Integer, Vector<Elevator>> elevatorLocations = new HashMap<Integer, Vector<Elevator>>();
 
     public void setElevatorFloor(Elevator elevator, int floor)
     {
-        elevatorLocations.put(floor, elevator);
+        Vector<Elevator> elevators = elevatorLocations.get(floor);
+        if (elevators != null)
+            elevators.add(elevator);
+        else
+        {
+            elevators = new Vector<Elevator>();
+            elevators.add(elevator);
+        }
+        elevatorLocations.put(floor, elevators);
     }
 
-    //another approach could also be by name and then in the main class use the name to get the elevator object
-    public Elevator getElevatorFloor(int floor)
+
+    public Vector<Elevator> getElevatorFloor(int floor) // list of elevators by floor
     {
         return elevatorLocations.get(floor);
     }
@@ -39,23 +48,37 @@ public class ElevatorController
 
     public Elevator getClosestElevatorAvailable(int floor)
     {
-        Elevator closestElevator = getElevatorFloor(floor);
-        if (closestElevator != null && Elevator.WAITING.equals(closestElevator.getStatus()))       //The exception is that if an unoccupied elevator is already stopped at that floor, then it will always have the highest priority answering that call.
+        Vector<Elevator> closestElevators = getElevatorFloor(floor);
+        for (Elevator closestElevator : closestElevators)
         {
-            return closestElevator;
+            // send the first one found. we can take into accoutn weight as well. or trips
+            if (closestElevator != null && Elevator.WAITING.equals(closestElevator.getStatus()))       //The exception is that if an unoccupied elevator is already stopped at that floor, then it will always have the highest priority answering that call.
+                return closestElevator;
         }
+
 
         Iterator iterator = elevatorLocations.entrySet().iterator();
         int distance = 0;
         while (iterator.hasNext())
         {
-            Map.Entry<Integer, Elevator> floorElevator = (Map.Entry)iterator.next();
+            Map.Entry<Integer, Vector<Elevator>> floorElevator = (Map.Entry)iterator.next();
 
             int floorNumber = floorElevator.getKey();
-            Elevator elevator = floorElevator.getValue();
-            if (distance != 0)
-                distance = Math.abs(floor - floorNumber);
-            else
+            Vector<Elevator> elevators = floorElevator.getValue();
+
+            for (Elevator closestElevator : closestElevators)
+            {
+                if (floor == closestElevator.getCurrentFloor() && )
+                //the unoccupied elevator closest to it will answer the call, unless an occupied elevator is moving and will pass that floor on its way. The exception is that if an unoccupied elevator is already stopped at that floor, then it will
+                //always have the highest priority answering that call.
+                int currentDistance = Math.abs(floor - floorNumber);
+
+                if (distance != 0 && distance > )
+                    distance
+            }
+
+
+
 
         }
 

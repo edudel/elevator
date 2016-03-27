@@ -54,6 +54,16 @@ public class Elevator
         this.openedDoors = openedDoors;
     }
 
+    public void setCurrrentFloor(int currentFloor)
+    {
+        this.currentFloor = currentFloor;
+    }
+
+    public int getCurrentFloor()
+    {
+        return this.currentFloor;
+    }
+
     public long getWeight()
     {
         return this.weight;
