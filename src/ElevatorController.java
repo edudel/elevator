@@ -1,6 +1,5 @@
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Iterator;
 import java.util.Map;
 
 public class ElevatorController
@@ -12,47 +11,44 @@ public class ElevatorController
 
     // 0 means not request
     private Map<Integer, String> requestMadeFloors = new HashMap<Integer, String>();
-    private String requestDirection;
-    private Map<Elevator, Integer> elevatorLocations = new HashMap<Elevator, Integer>();
+    private Map<Integer, Elevator> elevatorLocations = new HashMap<Integer, Elevator>();
 
     public void setElevatorFloor(Elevator elevator, int floor)
     {
-        elevatorLocations.put(elevator, floor);
+        elevatorLocations.put(floor, elevator);
     }
 
     //another approach could also be by name and then in the main class use the name to get the elevator object
-    public int getElevatorFloor(Elevator elevator)
+    public Elevator getElevatorFloor(int floor)
     {
         int floor = 0; // if 0 means the elevator was not found
-        if (elevatorLocations.get(elevator)!= null)
-            floor = elevatorLocations.get(elevator);
+        if (elevatorLocations.get(floor)!= null)
+            floor = elevatorLocations.get(floor);
         return floor;
     }
 
-    public int getRequestMadeFloorNumber()
+    public Map<Integer, String> getRequestMadeFloors()
     {
-        return this.requestMadeFloor;
+        return this.requestMadeFloors;
     }
 
-    public void setRequestMadeFloorNumber(int requestMadeFloor, String requestDirection)
+    public void setRequestMadeFloors(int requestMadeFloor, String requestDirection)
     {
         if (requestMadeFloor >= TOTAL_DESIRED_FLOORS && UP.equals(requestDirection) || requestMadeFloor < MIN_FLOOR && DOWN.equals(requestDirection))
             return;
 
         requestMadeFloors.put(requestMadeFloor, requestDirection);
-
-
-        this.requestMadeFloor = requestMadeFloor;
-
     }
 
-    public String getRequestDirection()
+    public Elevator getClosestElevatorAvailable()
     {
-        return this.requestDirection;
-    }
+        Iterator iterator = elevatorLocations.entrySet().iterator();
+            while (iterator.hasNext())
+            {
+                Map.Entry pair = (Map.Entry)iterator.next();
+                System.out.println(pair.getKey() + " = " + pair.getValue());
 
-    public Elevator getClosesElevatorAvailable()
-    {
+            }
 
     }
 

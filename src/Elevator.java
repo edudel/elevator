@@ -5,14 +5,15 @@ public class Elevator
     public static final String DOWN = "DOWN";
     public static final String UP = "UP";
     public static final String WAITING = "WAITING";
-
+    public static final int MAX_WEIGHT  = 1000;       //lbs
 
     private int currentFloor = 1;
     private boolean openedDoors = false;
-    private String status = "WAITING";
+    private String status = WAITING;  // if an elevator status is waiting, then its unoccupied
     private String name;
     private int trip = 0;
     private boolean maintenanceMode = false;
+    private long weight;
 
     public Elevator(String name, int currentFloor, boolean openedDoors, String status)
     {
@@ -52,6 +53,17 @@ public class Elevator
     {
         this.openedDoors = openedDoors;
     }
+
+    public long getWeight()
+    {
+        return this.weight;
+    }
+
+    public void setWeight(long weight)
+    {
+        this.weight = weight;
+    }
+
 
 }
 
