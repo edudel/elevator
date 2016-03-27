@@ -10,9 +10,11 @@ public class Elevator
     private int currentFloor = 1;
     private boolean openedDoors = false;
     private String status = "WAITING";
+    private String name;
 
-    public Elevator(int currentFloor, boolean openedDoors, String status)
+    public Elevator(String name, int currentFloor, boolean openedDoors, String status)
     {
+        this.name = name;
         this.currentFloor = currentFloor;
         this.openedDoors = openedDoors;
     }
